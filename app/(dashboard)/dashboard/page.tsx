@@ -6,5 +6,5 @@ export default async function Page() {
     headers: await headers(),
   });
   console.log({ res });
-  return <></>;
+  return <div>Dashboard</div>;
 }
