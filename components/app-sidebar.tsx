@@ -38,7 +38,7 @@ const data = {
     },
     {
       title: "Credentials",
-      url: "/dashboard/subscriptions",
+      url: "/dashboard/credentials",
       icon: IconShieldCheck,
     },
     {
@@ -77,8 +77,8 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
               <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Dashboard</span>
+                <IconInnerShadowTop className="!size-6" />
+                <span className="text-2xl font-semibold">Flo</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>

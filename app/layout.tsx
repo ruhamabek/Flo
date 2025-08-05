@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Better Auth Starter",
-  description: "Better Auth Starter",
+  title: "Flo",
+  description: "Automate web scraping",
 };
 
 export default function RootLayout({
