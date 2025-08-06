@@ -5,24 +5,22 @@ import prisma from "@/lib/prisma";
 import { createWorkflowSchema, createWorkflowtype } from "@/schema/workflow";
 import { WorkflowStatus } from "@/types/workflow";
 import { headers } from "next/headers";
-import { redirect } from "next/navigation";
 import { z } from "zod";
 
 export async function CreateWorkflow(
     form: createWorkflowtype
-){
+) {
     const {success , data} = createWorkflowSchema.safeParse(form);
            
-     if(!success){
+    if(!success){
         throw new Error("invalid form data");
-     }
-     
+    }
+
     const session = await auth.api.getSession({
-        headers: await headers() // you need to pass the headers object.
+        headers: await headers()
     })    
      
-     const userId = session?.user.id;
-
+    const userId = session?.user.id;
 
     if(!userId){
         throw new Error("unauthenticated");
@@ -33,6 +31,7 @@ export async function CreateWorkflow(
             userId,
             status: WorkflowStatus.DRAFT,
             definition: "TODO",
+            description:"",
             ...data,
         },
     });
@@ -41,5 +40,5 @@ export async function CreateWorkflow(
         throw new Error("Failed to create workflow");
     }
      
-   redirect(`/workflow/editor/${result.id}`)
-}; 
+    return result;
+}

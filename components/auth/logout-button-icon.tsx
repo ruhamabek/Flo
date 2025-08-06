@@ -15,7 +15,7 @@ export default function LogoutButton() {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          router.push("/login");
+          router.push("/");
         },
         onRequest: (ctx) => {
           setLoading(true);

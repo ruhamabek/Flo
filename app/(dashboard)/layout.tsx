@@ -6,8 +6,7 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 import { auth } from "@/lib/auth"; // path to your Better Auth server instance
 import { headers } from "next/headers";
-import { redirect } from "next/navigation";
-
+ 
 export default async function layout({
   children,
 }: Readonly<{
@@ -16,10 +15,7 @@ export default async function layout({
   const session = await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
   });
-  if (!session?.user) {
-    redirect("/login");
-  }
-
+ 
   return (
     <SidebarProvider
       style={
@@ -30,7 +26,7 @@ export default async function layout({
       }
     >
       <AppSidebar
-        user={{ ...session.user, image: session.user.image ?? null }}
+        user={{ ...session?.user, image: session?.user.image ?? null }}
         variant="inset"
       />
       <SidebarInset>
