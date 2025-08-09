@@ -6,6 +6,7 @@ import { GetWorkflowsForUser } from '@/actions/workflows/getWorkflowsForUser';
 import { AlertCircle } from 'lucide-react';
 import { IconBox } from '@tabler/icons-react';
 import CreateWorkflowDialog from './_components/CreateWorkflowDialog';
+import WorkflowCard from './_components/WorkflowCard';
 
 const page = () => {
   return (
@@ -15,7 +16,7 @@ const page = () => {
           <h1 className='text-3xl font-bold'>Workflows</h1>
           <p className='text-muted-foreground'>Manage your workflows</p>
         </div>
-        <CreateWorkflowDialog/> 
+        <CreateWorkflowDialog /> 
       </div>
 
       <div className='h-full py-6'>
@@ -53,7 +54,7 @@ async function UserWorkflows() {
                   <AlertTitle>Error</AlertTitle>
                   <AlertDescription>
                         Something went wrong. Please try again later.
-                  </AlertDescription>
+                  </AlertDescription> 
             </Alert>
         )
      }
@@ -73,7 +74,14 @@ async function UserWorkflows() {
         )
     }
 
-   return <div></div>;
+  return (
+  <div className="grid grid-cols-1 gap-4">
+    {workflows.map((workflow) => (
+      <WorkflowCard key={workflow.id} workflow={workflow} />
+    ))}
+  </div>
+);
+
 }
 
 export default page;

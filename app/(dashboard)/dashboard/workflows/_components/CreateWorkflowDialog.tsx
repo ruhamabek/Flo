@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button";
-import { IconFidgetSpinner, IconLayersIntersect } from "@tabler/icons-react";
+import { IconLayersIntersect } from "@tabler/icons-react";
 import CustomDialogHeader from "@/components/CustomDialogHeader";
 import { useForm } from "react-hook-form";
 import { createWorkflowSchema, createWorkflowtype } from "@/schema/workflow";
@@ -62,7 +62,10 @@ function CreateWorkflowDialog({triggerText} : {triggerText?: string}){
     }, [mutate]);
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={(open) => {
+                  form.reset();
+                  setOpen(open);
+        }}>
             <DialogTrigger asChild>
                 <Button>
                     {triggerText ?? "Create workflow"}
