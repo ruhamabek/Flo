@@ -8,7 +8,7 @@ const NodeCard = ({children , nodeId , isSelected} : {
     isSelected: boolean;
     children: ReactNode;
 }) => {
-  const {getNode} = useReactFlow();
+  const {getNode , setCenter} = useReactFlow();
 
   return (
     <div onDoubleClick={() => {
@@ -21,8 +21,15 @@ const NodeCard = ({children , nodeId , isSelected} : {
           if(!position || !measured) return ;
           
           const {width , height} = measured;
-          const x = position.x;
-          const y = position.y;
+          const x = position.x * width! / 2;
+          const y = position.y * height! / 2;
+
+          if(x === undefined || y === undefined) return;
+
+          setCenter( x , y , {
+            zoom: 1,
+            duration: 500,
+          });
 
     }}
     
