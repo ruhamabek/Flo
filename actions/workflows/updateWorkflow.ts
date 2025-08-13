@@ -1,6 +1,9 @@
+"use server";
+
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { WorkflowStatus } from "@/types/workflow";
+import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 
 
@@ -33,5 +36,7 @@ export async function UpdateWorkflow({id, definition}: {id: string , definition:
             userId,
         }
     })
+
+    revalidatePath("/workflow");
 
 }

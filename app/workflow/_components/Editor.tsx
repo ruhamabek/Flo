@@ -19,5 +19,5 @@ const Editor = ({workflow} : {workflow: Workflow}) => {
     </ReactFlowProvider>
   )
 }
-
+ 
 export default Editor

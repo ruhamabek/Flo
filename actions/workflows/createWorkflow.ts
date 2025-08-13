@@ -30,7 +30,7 @@ export async function CreateWorkflow(
         data:{
             userId,
             status: WorkflowStatus.DRAFT,
-            definition: "TODO",
+            definition: "{}",
             description:"",
             ...data,
         },
