@@ -20,7 +20,7 @@ const fitViewOptions = { padding : 2}
 const FlowEditor = ({workflow} : {workflow: Workflow}) => {
     const[nodes , setNodes , onNodesChange] = useNodesState<AppNode>([]);
     const [edges , setEdges , onEdgesChange] = useEdgesState<Edge>([]);
-    const {setViewport , screenToFlowPosition} = useReactFlow();
+    const {setViewport , screenToFlowPosition , updateNodeData} = useReactFlow();
     
     useEffect(() => {
          try{
@@ -58,8 +58,20 @@ const FlowEditor = ({workflow} : {workflow: Workflow}) => {
     } , []);
    
      const onConnect = useCallback((connection: Connection) => {
-         setEdges((eds) => addEdge({...connection ,animated: true} , eds))
-      } ,[]);
+         setEdges((eds) => addEdge({...connection ,animated: true} , eds));
+         if(!connection.targetHandle) return;
+
+         const node = nodes.find((nd) => nd.id === connection.target);
+
+         if(!node) return;
+         const nodeInputs = node.data.inputs;
+         updateNodeData(node.id , {
+          inputs: {
+            ...nodeInputs,
+            [connection.targetHandle]: "",
+          },
+         })
+      } ,[setEdges , updateNodeData, nodes]);
 
       const edgeTypes = {
         default: DeletableEdge
@@ -70,7 +82,7 @@ const FlowEditor = ({workflow} : {workflow: Workflow}) => {
         <ReactFlow
            nodes={nodes}
            edges={edges}
-           edgeTypes={edgeTypes}
+           edgeTypes={edgeTypes }
            onEdgesChange={onEdgesChange}
            onNodesChange={onNodesChange}
            nodeTypes={nodeTypes}
