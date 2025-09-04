@@ -33,7 +33,7 @@ const SaveBtn = ({workflowId} : {workflowId: string}) => {
                 })
         
          }}>
-        <IconCheck size={16} className='stroke-white'/>
+        <IconCheck size={16} className='dark:stroke-white stroke-black'/>
         Save
     </Button>
   )
